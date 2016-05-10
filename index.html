@@ -1,0 +1,40 @@
+<htmL lang = "en">
+  <head>
+    <meta charset = 'utf-8'>
+    <link href="style/SuperSquire.css" rel = "stylesheet" type = "text/css" />
+    <title>Super Squire</title>
+    <script src="pixi.js"></script>
+  </head>
+  <body>
+
+    <script>
+      var stage = new PIXI.Stage(0x66FF99);
+
+      var renderer = PIXI.autoDetectRenderer(400, 300);
+
+      document.body.appendChild(renderer.view);
+      requestAnimFrame(animate);
+      function animate() {
+        requestAnimFrame(animate);
+
+        renderer.render(stage);
+      }
+    </script>
+    
+    <div id = "banner">
+      <img class ="gameBanner" src="images/banner.jpg" />
+    </div>
+    <div id="underBanner">
+      <div id="rightAd"></div>
+      <div id="leftAd"></div>
+      <div id="topAd"></div>
+      <div id = "gameScreen">
+          <!-- <canvas id="shieldSelect"></canvas>
+          <canvas id="reactionDiv"></canvas> -->
+        <!-- <canvas id= "game">This is where the game screen appears. If this text appears, please use a browser that supports HTML5 canvasses. These include Google Chrome, Mozilla Firefox, Apple Safari and Microsoft Edge</canvas> -->
+        <img src= "images/bg.jpg" style ="height: 100%; width: 100%;"/>
+      </div>
+      <div id="bottomAd"></div>
+    </div>
+  </body>
+  </html>

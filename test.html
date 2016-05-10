@@ -1,0 +1,38 @@
+<htmL lang = 'en'>
+  <head>
+    <meta charset = 'utf-8'>
+    <link href="style/SuperSquire.css" rel = "stylesheet" type = "text/css" />
+    <title>Super Squire - TEST</title>
+    <script src="script/pixi.js"></script>
+  </head>
+  <body>
+
+    <script>
+    var stage = new PIXI.Stage(0x66FF99);
+
+    var renderer = PIXI.autoDetectRenderer(400, 300);
+
+    document.body.appendChild(renderer.view);
+    requestAnimationFrame(animate);
+
+    var texture = PIXI.Texture.fromImage("assets/woodShield.png");
+    var metalShield = new PIXI.Sprite(texture);
+
+
+    metalShield.anchor.x = 0.5;
+    metalShield.anchor.y = 0.5;
+
+    metalShield.position.x = 200;
+    metalShield.position.y = 200;
+
+    stage.addChild(metalShield);
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      renderer.render(stage);
+    }
+    </script>
+
+  </body>
+  </html>
