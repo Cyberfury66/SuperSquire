@@ -14,10 +14,13 @@ function world(newStage, newGame) {
             }
         }
 
-        spawnSquire() {
-            cells[0][1].setSquire(new Squire("woodShield", cells[0][1], cells[0][1].getCenter));
-        }
+        cells[0][1].setSquire(new Squire("woodShield", cells[0][1], cells[0][1].getCenter));
 
         spawnTimer = setInterval('spawnArrow();', 3000);
+    }
+
+    this.moveSquireTo = function(col, row, currentCell) {
+        cells[col][row].setSquire(currentCell.getSquire());
+        currentCell.clearSquire();
     }
 }
