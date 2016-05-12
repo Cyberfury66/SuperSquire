@@ -1,7 +1,6 @@
-function Squire(startingShield, startingCell, startingPosition) {
+function Squire(startingShield, startingCell) {
     this.currentShield = startingShield;
     this.currentCell = startingCell;
-    this.position = startingPosition;
 
     this.setShield = function(newShield) {
         currentShield = newShield;
@@ -30,6 +29,13 @@ function Squire(startingShield, startingCell, startingPosition) {
         }
     };
 
+    this.setImg = function() {
+        this.texture = PIXI.Texture.fromImage("assets\\" + this.currentShield + ".png");
+        this.img = new PIXI.Sprite(this.texture);
+    }
+    this.getImg = function() {
+        return this.img;
+    }
     this.moveUp = function() {
         if(currentCell.getY() != 0) {
             moveSquireTo(currentCell.getX(), currentCell.getY()+1);//This will probably have to be a Game method, which means that Squire needs a reference.
@@ -69,4 +75,13 @@ function Squire(startingShield, startingCell, startingPosition) {
     this.setCell = function(newCell) {
         currentCell = newCell;
     };
+
+    this.getCell = function() {
+        return this.currentCell;
+    }
+
+    this.create = function(){
+      this.stage.addChild(this.img);
+
+    }
 }

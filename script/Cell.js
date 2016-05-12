@@ -1,8 +1,10 @@
-function Cell(col, row, newStage){
+function Cell(col, row, pX, pY){
     this.gridPos = new Point(col, row);
     //this.center = ;not sure how to calculate this, and what we need
     this.squire = null;
-    this.stage = newStage;
+    this.pX = pX;
+    this.pY = pY;
+    console.log("" + this.gridPos.getX() + " " + this.gridPos.getY() + " " + pX + " " + pY + "\n");
 
     this.setSquire = function(newSquire) {
         squire = newSquire;
@@ -16,5 +18,13 @@ function Cell(col, row, newStage){
     this.clearSquire = function() {
         squire = null;
         //undraw the squire
+    }
+
+    this.getPxY = function(){
+        return pY;
+    }
+
+    this.getPxX = function(){
+        return pX;
     }
 }
