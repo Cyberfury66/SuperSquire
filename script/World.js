@@ -16,11 +16,18 @@ function World(newGame) {
 function spawnArrows(){
     for(var k = 0; k < arrows.length; k++){
         if(arrows[k].isSpawned() == false){
+            arrows[k].setImg();
             arrows[k].setStart();
             arrows[k].setEnd();
+
             // center the sprites anchor point
-            arrows[k].getImg().anchor.x = 1;
-            arrows[k].getImg().anchor.y = 0.5;
+            if(arrows[k].isRedherring() == true) {
+                arrows[k].getImg().anchor.x = 0.5;
+                arrows[k].getImg().anchor.y = 0.5;
+            } else {
+                arrows[k].getImg().anchor.x = 1;
+                arrows[k].getImg().anchor.y = 0.5;
+            }
 
             arrows[k].getShadowImg().anchor.x = 0.5;
             arrows[k].getShadowImg().anchor.y = 0.5;

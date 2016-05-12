@@ -2,8 +2,7 @@ function Arrow(height, stg){
 
   this.shadowTex = PIXI.Texture.fromImage("assets\\shadow.png");
   this.shadowImg = new PIXI.Sprite(this.shadowTex);
-  this.texture = PIXI.Texture.fromImage("assets\\fireArrow.png");
-  this.img = new PIXI.Sprite(this.texture);
+
   this.start;
   this.end;
   this.speed = 10;
@@ -11,13 +10,29 @@ function Arrow(height, stg){
   this.x = 0;
   this.stage = stg;
   this.spawned = false;
+  this.redherring = false;
 
   this.getImg = function(){
     return this.img;
   }
 
   this.setImg = function(){
+      var num = Math.floor((Math.random()*5) + 1);
+      if(num == 5) {
+          this.texture = PIXI.Texture.fromImage("assets\\fish.png");
+          this.img = new PIXI.Sprite(this.texture);
+          this.img.width = 100;
+          this.img.height = 100;
+          this.redherring = true;
+      } else {
+          this.texture = PIXI.Texture.fromImage("assets\\fireArrow.png");
+          this.img = new PIXI.Sprite(this.texture);
+          this.redherring = false;
+      }
+  }
 
+  this.isRedherring = function() {
+      return this.redherring;
   }
 
   this.getShadowImg = function(){
@@ -37,13 +52,18 @@ function Arrow(height, stg){
 
   this.setEnd = function(){
     this.end = Math.floor((Math.random() * 3) + 1);
-    if(this.end == 1){
-      this.destination = 800;
-    } else if(this.end == 2){
-      this.destination = 700;
+    if(this.redherring == false) {
+        if(this.end == 1){
+          this.destination = 800;
+        } else if(this.end == 2){
+          this.destination = 700;
+        } else {
+          this.destination = 570;
+        }
     } else {
-      this.destination = 570;
+        this.destination = 960;
     }
+
   }
 
   this.getX = function(){
@@ -66,9 +86,14 @@ function Arrow(height, stg){
   }
 
   this.move = function(){
-    this.shadowImg.width += this.speed * .1;
-    this.shadowImg.height += this.speed * .1;
-    this.img.position.x += this.speed;
+    if(this.redherring == true) {
+        this.img.position.x += this.speed;
+        this.img.rotation += 0.05;
+    } else {
+        this.shadowImg.width += this.speed * .1;
+        this.shadowImg.height += this.speed * .1;
+        this.img.position.x += this.speed;
+    }
   }
 
   this.create = function(){
