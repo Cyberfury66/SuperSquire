@@ -27,4 +27,12 @@ function Cell(col, row, pX, pY){
     this.getPxX = function(){
         return pX;
     }
+
+    this.getY = function() {
+      return this.gridPos.getY();
+    }
+
+    this.getX = function() {
+      return this.gridPos.getX();
+    }
 }

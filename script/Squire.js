@@ -1,27 +1,28 @@
-function Squire(startingShield, startingCell) {
+function Squire(startingShield, startingCell, newWorld) {
     this.currentShield = startingShield;
     this.currentCell = startingCell;
+    this.world = newWorld;
 
     this.setShield = function(newShield) {
         currentShield = newShield;
     };
 
-    this.move = function(direction) {
+    this.moveNow = function(direction) {
         switch (direction) {
            case 0:
-               moveUp();
+               this.moveUp();
                break;
 
            case 1:
-               moveRight();
+               this.moveRight();
                break;
 
            case 2:
-               moveDown();
+               this.moveDown();
                break;
 
            case 3:
-               moveLeft();
+               this.moveLeft();
                break;
 
            default:
@@ -37,43 +38,36 @@ function Squire(startingShield, startingCell) {
         return this.img;
     }
     this.moveUp = function() {
-        if(currentCell.getY() != 0) {
-            moveSquireTo(currentCell.getX(), currentCell.getY()+1);//This will probably have to be a Game method, which means that Squire needs a reference.
-            position = currentCell.getCenter();
+        if(this.currentCell.getY() != 0) {
+            world.moveSquireTo(this.currentCell.getX(), this.currentCell.getY() - 1);//This will probably have to be a Game method, which means that Squire needs a reference.
         }
     };
 
     this.moveRight = function() {
-        if(currentCell.getX() != 2) {
-            moveSquireTo(currentCell.getX()+1, currentCell.getY());
-            position = currentCell.getCenter();
+        if(this.currentCell.getX() != 2) {
+            world.moveSquireTo(this.currentCell.getX() + 1, this.currentCell.getY());
         }
     };
 
     this.moveDown = function() {
-        if(currentCell.getY() != 2) {
-            moveSquireTo(currentCell.getX(), currentCell.getY()-1);
-            position = currentCell.getCenter();
+        if(this.currentCell.getY() != 2) {
+          console.log(this.currentCell.getY());
+            world.moveSquireTo(this.currentCell.getX(), this.currentCell.getY() + 1);
         }
     };
 
     this.moveLeft = function() {
-        if(currentCell.getX() != 0) {
-            moveSquireTo(currentCell.getX()-1, currentCell.getY());
-            position = currentCell.getCenter();
+        if(this.currentCell.getX() != 0) {
+            world.moveSquireTo(this.currentCell.getX() - 1, this.currentCell.getY());
         }
     };
 
-    this.getPosition = function() {
-        return position;
-    };
-
     this.getShield = function() {
-        return currentShield;
+        return this.currentShield;
     };
 
     this.setCell = function(newCell) {
-        currentCell = newCell;
+        this.currentCell = newCell;
     };
 
     this.getCell = function() {
@@ -83,5 +77,11 @@ function Squire(startingShield, startingCell) {
     this.create = function(){
       this.stage.addChild(this.img);
 
+    }
+
+    this.move = function(){
+      console.log("squire Move");
+      this.img.position.x = this.currentCell.getPxX();
+      this.img.position.y = this.currentCell.getPxY();
     }
 }
