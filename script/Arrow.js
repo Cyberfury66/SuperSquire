@@ -1,5 +1,6 @@
 function Arrow(height, stg){
 
+    this.hasCollidedYet = false;
     this.shadowTex = PIXI.Texture.fromImage("assets\\shadow.png");
     this.shadowImg = new PIXI.Sprite(this.shadowTex);
 
@@ -12,6 +13,14 @@ function Arrow(height, stg){
     this.stage = stg;
     this.spawned = false;
     this.redherring = false;
+
+    this.hasCollided = function() {
+        return this.hasCollidedYet;
+    }
+
+    this.setCollided = function(collided) {
+        this.hasCollidedYet = collided;
+    }
 
     this.getImg = function(){
         return this.img;

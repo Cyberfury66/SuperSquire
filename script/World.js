@@ -20,6 +20,7 @@ function World(newGame) {
                 arrows[k].setImg();
                 arrows[k].setStart();
                 arrows[k].setEnd();
+                arrows[k].setCollided(false);
 
                 // center the sprites anchor point
                 if(arrows[k].isRedherring() == true) {
@@ -177,13 +178,16 @@ function World(newGame) {
     }
 
     function checkCollision(arrow) {
-        if(arrow.getDestinationRow() == squire.getCell().getRow()) {
-            if(arrow.getDestinationColumn() == squire.getCell().getCol()) {
-                score += 1;
-                return;
+        if(!arrow.hasCollided()) {
+            arrow.setCollided(true);
+            if(arrow.getDestinationRow() == squire.getCell().getRow()) {
+                if(arrow.getDestinationColumn() == squire.getCell().getCol()) {
+                    score += 1;
+                    return;
+                }
             }
+            //document.location.href = "gameOver.html";
+            location.reload();
         }
-        //document.location.href = "gameOver.html";
-        location.reload();
     }
 }
