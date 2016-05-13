@@ -1,68 +1,85 @@
-function Squire(startingShield, startingCell, startingPosition) {
+function Squire(startingShield, startingCell, newWorld) {
     this.currentShield = startingShield;
     this.currentCell = startingCell;
-    this.position = startingPosition;
+    this.world = newWorld;
 
     this.setShield = function(newShield) {
         currentShield = newShield;
     };
 
-    this.move = function(direction) {
+    this.moveNow = function(direction) {
         switch (direction) {
            case 0:
-           moveUp();
-           break;
+               this.moveUp();
+               break;
 
            case 1:
-           moveRight();
-           break;
+               this.moveRight();
+               break;
 
            case 2:
-           moveDown();
-           break;
+               this.moveDown();
+               break;
 
            case 3:
-           moveLeft();
-           break;
+               this.moveLeft();
+               break;
 
            default:
-           break;
+               break;
         }
     };
 
+    this.setImg = function() {
+        this.texture = PIXI.Texture.fromImage("assets\\" + this.currentShield + ".png");
+        this.img = new PIXI.Sprite(this.texture);
+    }
+    this.getImg = function() {
+        return this.img;
+    }
     this.moveUp = function() {
-        if(currentCell.getY() != 0) {
-            setCell(currentCell.getX(), currentCell.getY()+1);//This will probably have to be a Game method, which means that Squire needs a reference.
-            position = currentCell.getCenter();
+        if(this.currentCell.getRow() != 0) {
+            world.moveSquireTo(this.currentCell.getCol(), this.currentCell.getRow() - 1);
         }
     };
 
     this.moveRight = function() {
-        if(currentCell.getX() != 2) {
-            setCell(currentCell.getX()+1, currentCell.getY());
-            position = currentCell.getCenter();
+        if(this.currentCell.getCol() != 2) {
+            world.moveSquireTo(this.currentCell.getCol() + 1, this.currentCell.getRow());
         }
     };
 
     this.moveDown = function() {
-        if(currentCell.getY() != 2) {
-            setCell(currentCell.getX(), currentCell.getY()-1);
-            position = currentCell.getCenter();
+        if(this.currentCell.getRow() != 2) {
+            world.moveSquireTo(this.currentCell.getCol(), this.currentCell.getRow() + 1);
         }
     };
 
     this.moveLeft = function() {
-        if(currentCell.getX() != 0) {
-            setCell(currentCell.getX()-1, currentCell.getY());
-            position = currentCell.getCenter();
+        if(this.currentCell.getCol() != 0) {
+            world.moveSquireTo(this.currentCell.getCol() - 1, this.currentCell.getRow());
         }
     };
 
-    this.getPosition = function() {
-        return position;
+    this.getShield = function() {
+        return this.currentShield;
     };
 
-    this.getShield = function() {
-        return currentShield;
+    this.setCell = function(newCell) {
+        this.currentCell = newCell;
     };
+
+    this.getCell = function() {
+        return this.currentCell;
+    }
+
+    this.create = function(){
+      this.stage.addChild(this.img);
+
+    }
+
+    this.move = function(){
+      this.img.position.x = this.currentCell.getPxX();
+      this.img.position.y = this.currentCell.getPxY();
+    }
 }
