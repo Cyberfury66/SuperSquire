@@ -187,7 +187,7 @@ function World(newGame) {
                 }
             }
             //document.location.href = "gameOver.html";
-            location.reload();
+            setTimeout(location.reload, 5000);
         }
     }
 }
