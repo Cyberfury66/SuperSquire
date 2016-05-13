@@ -3,6 +3,7 @@ function World(newGame) {
     this.cells = [3];
     this.game = newGame;//might not need this
     var score = 0;
+    var spawnTimer;
 
     var arrows = [];
     arrowNum = 0;
@@ -104,7 +105,7 @@ function World(newGame) {
             arrows[i].setImg();
         }
         stage.addChild(squire.getImg());
-        setInterval( spawnArrows, 2000);
+        spawnTimer = setInterval( spawnArrows, 2000);
 
     };
 
