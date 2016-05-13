@@ -6,6 +6,7 @@ function Arrow(height, stg){
   this.start;
   this.end;
   this.speed = 10;
+  this.shadowMaxSize = 100;
 
   this.x = 0;
   this.stage = stg;
@@ -56,13 +57,15 @@ function Arrow(height, stg){
         if(this.end == 1){
           this.destination = 800;
         } else if(this.end == 2){
-          this.destination = 700;
+          this.destination = 685;
         } else {
           this.destination = 570;
         }
     } else {
         this.destination = 960;
     }
+
+    this.timeTillHit = this.destination / this.speed;//calculates the time it will take to hit the target.
 
   }
 
@@ -90,8 +93,8 @@ function Arrow(height, stg){
         this.img.position.x += this.speed;
         this.img.rotation += 0.05;
     } else {
-        this.shadowImg.width += this.speed * .1;
-        this.shadowImg.height += this.speed * .1;
+        this.shadowImg.width += this.shadowGrowthSpeed;//Grows by the calculated growth speed every tick.
+        this.shadowImg.height += this.shadowGrowthSpeed;
         this.img.position.x += this.speed;
     }
   }
@@ -103,6 +106,8 @@ function Arrow(height, stg){
     this.stage.addChild(this.img);
 
     this.spawned = true;
+
+    this.shadowGrowthSpeed = this.shadowMaxSize / this.timeTillHit;//calculates how fast the shadow should grow to reach max size when the arrow hits.
   }
 
   this.remove = function(){
