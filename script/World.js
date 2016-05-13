@@ -12,6 +12,7 @@ function World(newGame) {
     this.width = 854;
     var renderer = PIXI.autoDetectRenderer(this.width, this.height);
     var text = new PIXI.Text('Score: ' + score,{font : '24px Arial', fill : 0xff1010, align : 'center'});
+    text = this.width/3;
 
     //spawn arrows
     function spawnArrows(){
