@@ -80,7 +80,7 @@ function World(newGame) {
 
         requestAnimationFrame( animate );
 
-        var backgroundTexture = PIXI.Texture.fromImage("assets\\bg_plain.jpg");
+        var backgroundTexture = PIXI.Texture.fromImage("assets\\bg_no_score.jpg");
         var backgroundImg = new PIXI.Sprite(backgroundTexture);
 
 
