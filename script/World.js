@@ -187,7 +187,11 @@ function World(newGame) {
                 }
             }
             //document.location.href = "gameOver.html";
-            setTimeout(location.reload, 5000);
+            for(var j = 0; j < arrows.length; j++){
+                arrows[j].remove();
+            }
+            clearInterval(spawnTimer);
+            setTimeout("location.reload()", 3000);
         }
     }
 }
