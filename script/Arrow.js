@@ -35,7 +35,7 @@ function Arrow(height, stg){
             this.img.height = 100;
             this.redherring = true;
         } else {
-            this.texture = PIXI.Texture.fromImage("assets\\fireArrow.png");
+            this.texture = PIXI.Texture.fromImage("assets\\arrow.png");
             this.img = new PIXI.Sprite(this.texture);
             this.redherring = false;
         }
