@@ -4,7 +4,6 @@ function Cell(col, row, pX, pY){
     this.squire = null;
     this.pX = pX;
     this.pY = pY;
-    console.log("" + this.gridPos.getX() + " " + this.gridPos.getY() + " " + pX + " " + pY + "\n");
 
     this.setSquire = function(newSquire) {
         squire = newSquire;
@@ -28,11 +27,11 @@ function Cell(col, row, pX, pY){
         return pX;
     }
 
-    this.getY = function() {
+    this.getRow = function() {
       return this.gridPos.getY();
     }
 
-    this.getX = function() {
+    this.getCol = function() {
       return this.gridPos.getX();
     }
 }

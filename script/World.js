@@ -53,16 +53,18 @@ function World(newGame) {
     var xOfCell;
 
     for(var col = 0; col < 3; col++) {
-      yOfCell = this.height / 6 + (this.height / 3) * col;
       this.cells[col] = [3]
+      xOfCell = 570 + 115 * col;
       for(var row = 0; row < 3; row++) {
-        xOfCell = 570 + 115 * row;
+        yOfCell = this.height / 6 + (this.height / 3) * row;
+        console.log("Column: " + col + " Row: " + row);
+        console.log("xOfCell: " + xOfCell + " yOfCell: " + yOfCell);
         this.cells[col][row] = new Cell(col, row, xOfCell, yOfCell);
       }
     }
-    var squire = new Squire("woodShield", this.cells[1][0]);
-    squire.setCell(this.cells[1][0]);
-    this.cells[1][0].setSquire(squire);
+    var squire = new Squire("woodShield", this.cells[0][1]);
+    squire.setCell(this.cells[0][1]);
+    this.cells[0][1].setSquire(squire);
     squire.setImg();
     squireImg = squire.getImg();
 
@@ -102,10 +104,9 @@ function World(newGame) {
 
   };
 
-  this.moveSquireTo = function(cellX, cellY) {
-    console.log(cellY);
-    this.cells[cellX][cellY].setSquire(squire);
-    squire.setCell(this.cells[cellX][cellY]);
+  this.moveSquireTo = function(col, row) {
+    this.cells[col][row].setSquire(squire);
+    squire.setCell(this.cells[col][row]);
   };
 
   //Keyboard control function listener
@@ -127,13 +128,13 @@ function World(newGame) {
       break;
 
       //W A S D
-      case 65: squire.move(3); //left
+      case 65: squire.moveNow(3); //left
       break;
-      case 68: squire.move(1); //up
+      case 68: squire.moveNow(1); //right
       break;
-      case 83: squire.move(2); //right
+      case 83: squire.moveNow(2); //down
       break;
-      case 87: squire.move(0); //down
+      case 87: squire.moveNow(0); //up
       break;
 
       //Regular Numbers
