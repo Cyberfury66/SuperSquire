@@ -1,21 +1,29 @@
 <htmL lang = "en">
   <head>
     <meta charset = 'utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="style/SuperSquire.css" rel = "stylesheet" type = "text/css" />
     <title>Super Squire</title>
+
     <!--Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/3.0.11/pixi.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
 
+    <script>$(window).resize(function() {location.reload();})</script>
+
     <!--Menus -->
     <script src="script/mainmenu.js"></script>
     <script src="script/mainMenuJQ.js"></script>
-    <script src="script/htp.js"></script>
+    <script src="script/htpJQ.js"></script>
+    <!-- <script src="script/gameoverJQ.js"></script> -->
+    <script src="script/LeaderboardsJQ.js"></script>
+    <!-- <script src="script/htp.js"></script> -->
     <script src="script/gameover.js"></script>
     <script src="script/Button.js"></script>
-    <script src="script/Leaderboards.js"></script>
+    <!-- <script src="script/Leaderboards.js"></script> -->
 
     <!--Game Mechanics -->
     <script src="script/Squire.js"></script>
@@ -26,20 +34,63 @@
   </head>
 
   <body onload="mainMenu()">
-    <div id = "banner">
-      <img class ="gameBanner" src="images/banner.jpg" />
-    </div>
-    <div id="underBanner">
-      <div id="rightAd"></div>
-      <div id="leftAd"></div>
-      <div id="topAd"></div>
-      <div id = "gameScreen" class = "container">
-        <img src="assets/logo.png" id= "logo"/>
-        <button type="button" class="btn btn-default" id="playButton">Play</button><br />
-        <button type="button" class="btn btn-default" id="howtoplayButton">How To Play</button><br />
-        <button type="button" class="btn btn-default" id="leaderboards">Leaderboards</button><br />
-      </div>
-      <div id="bottomAd"></div>
+        <div id = "gameScreen">
+          <div id="mainMenuDiv">
+            <img src="assets/logo.png" id= "logo"/><br />
+            <button type="button" class="btn btn-default" id="playButton">Play</button><br />
+            <button type="button" class="btn btn-default" id="howtoplayButton">How To Play</button><br />
+            <button type="button" class="btn btn-default" id="leaderboards">Leaderboards</button><br />
+            <button type="button" class="btn btn-default" id="muteMusicButton"><span class="glyphicon glyphicon-music" aria-hidden="true"></span></button>
+            <button type="button" class="btn btn-default" id="muteSoundButton"><span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span></button><br /><br />
+            <p id="landscapeInstruction">You are currently in PORTRAIT mode, for best results, please use in LANDSCAPE mode.</p>
+          </div>
+
+          <div id="howtoplayDiv">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+              <!-- Indicators -->
+              <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+              </ol>
+
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                  <img src="images/htp1.jpg" alt="Shield Tutorial" width="100%" height="100%">
+                </div>
+
+                <div class="item">
+                  <img src="images/htp2.jpg" alt="Movement Tutorial" width="100%" height="100%">
+                </div>
+
+                <div class="item">
+                  <img src="images/htp3.jpg" alt="General Tutorial" width="100%" height="100%">
+                </div>
+              </div>
+
+              <!-- Left and right controls -->
+              <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+              </a>
+              <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              </a>
+            </div>
+            <button type="button" class="btn btn-default" id="mainMenuButton">Main Menu</button>
+          </div>
+
+        <div id="gameOverDiv">
+          <div>
+            <button type="button" class="btn btn-default" id="playAgainButton">Play Again</button><br />
+            <button type="button" class="btn btn-default" id="mainMenuButtonC">Main Menu</button><br />
+          </div>
+        </div>
+
+        <div id="leaderboardsDiv"><br />
+          <img id="leadPIC" src="images/leaderboard.jpg" /><br /><br />
+          <button type="button" class="btn btn-default" id="mainMenuButtonL">Main Menu</button>
+        </div>
     </div>
   </body>
   </html>
