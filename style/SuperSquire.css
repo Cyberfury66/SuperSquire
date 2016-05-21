@@ -1,144 +1,163 @@
 body {
   overflow: hidden;
+  background-color: black;
 }
 
-#game {
-  width: 80%;
-  height: 100%;
+@font-face {
+  font-family: 'kingArthur';
+  src: url('../fonts/kingArthur.ttf');
 }
 
-#shieldSelect {
-  height: 100%;
-  width: 20%;
-  border-style:dotted;
-  border-color: red;
-  padding: 0px;
-  float: left;
-}
-
-#reactionDiv {
-  height: 100%;
-  float: left;
-  padding: 0px;
-  border-style: dashed;
-  border-color: yellow;
-}
-
-#banner {
-  height: 20%;
-  width: 100%;
+.btn {
+  position: relative;
+  display: inline-block;
+  font-size: 1.3em;
+  font-weight: normal;
   text-align: center;
-  border-color: white;
-  border-style: dashed;
-  border-width: thin;
-  float: center;
-  padding: 0;
+  border-radius: 4px;
+  padding: 0px 16px;
+  margin-bottom: 1%;
+  font-family: 'kingArthur';
+  color: white;
+  background-image: url('../assets/wood texture dark.png');
+  background-size: 100%;
 }
 
-.gameBanner {
+.btn:hover {
+  color: yellow;
+}
+
+.btn:visited {
+  color: white;
+}
+
+#howtoplayDiv {
+  height: 90%;
   width: 100%;
-  height: 100%;
+  background-size: 100%;
 }
 
 #gameScreen {
-  height: 65%;
-  width: 65%;
-  margin-left: auto;
-  margin-right: auto;
+  float: none;
+  height: 70%;
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  background-size: 100% 100%;
+  background-image: url("../images/bg3.jpg");
+  background-size: 100%;
+  border-style: dashed;
+  border-color: black;
 }
 
-#topAd {
-  width: 75%;
-  height: 8%;
-  background-color: black;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  padding: 0;
+#logo {
+  width: 20%;
+  height: auto;
+  top: 20%;
+  margin: 0 auto;
+  position: relative;
 }
 
-#leftAd {
-  overflow: hidden;
-  float: left;
-  background-color: black;
-  margin-left: 0%;
-  height: 81%;
-  width: 17.5%;
-  display: block;
-  padding: 0;
-}
-
-#rightAd {
-  overflow: hidden;
-  float: right;
-  margin-top: 0%;
-  margin-right: 0%;
-  background-color: black;
-  height: 81%;
-  width: 17.5%;
-  display: block;
-  padding: 0;
-}
-
-#bottomAd {
-  margin-bottom: auto;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: black;
-  height: 8%;
-  width: 75%;
-  padding: 0;
-  display: block;
-}
-
-#gamePic {
-  height: 100%;
-  width: 100%;
+#leaderboardsDiv{
+  font-family: 'kingArthur';
+  color: white;
   text-align: center;
 }
 
-@media only screen and (max-width: 992px){
+#leadPIC {
+  height: 80%;
+  width: auto;
+}
+
+#scoresText {
+    z-index: 100;
+    position: absolute;
+    left: 42%;
+    top: 30%;
+}
+
+#gameOverDiv {
+  background-color: red;
+  position: absolute;
+}
+
+#landscapeInstruction {
+  font-family: 'kingArthur';
+  color: white;
+}
+
+#muteMusicButton {
+  width: 25%;
 
 }
 
-@media only screen and (max-width: 1280px){
-
+#muteSoundButton {
+  width: 25%;
 }
 
-@media only screen and (max-width: 768px) {
-  #leftAd {
-    display: none;
+@media screen and (orientation:portrait){
+}
+
+@media screen and (orientation:landscape){
+  body {
+     -webkit-transform: rotate(0deg);
+     -moz-transform: rotate(0deg);
+     -o-transform: rotate(0deg);
+     -ms-transform: rotate(0deg);
+     transform: rotate(0deg);
   }
 
-  #rightAd {
+  #landscapeInstruction {
     display: none;
   }
-
 }
 
-@media only screen and (max-width: 480px) {
-  #gameScreen {
-    width: 100%;
+@media screen and (max-width: 320px) {
+  #gameScreen{
     height: 100%;
+    width: 100%;
+    position: relative;
   }
 
-  #rightAd {
-    display: none;
+  .btn {
+    width: 60%;
+    height: 13%;
   }
 
-  #leftAd {
-    display: none;
+  #logo {
+    height: 30%;
+    width: auto;
+    margin: 0 auto;
   }
 
-  #topAd {
-    display: none;
+  #landscapeInstruction {
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-width : 768px) {
+  #gameScreen{
+    height: 100%;
+    width: 100%;
   }
 
-  #bottomAd {
-    display: none;
+  #myCarousel {
+    height: 100%;
+    width: 100%;
   }
 
-  #banner {
-    display: none;
+  .btn {
+    width: 60%;
+    height: 13%;
+  }
+
+  #logo {
+    height: 30%;
+    width: auto;
+    margin: 0 auto;
+  }
+
+  #landscapeInstruction {
+    font-size: 1em;
   }
 }

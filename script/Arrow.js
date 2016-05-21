@@ -1,20 +1,55 @@
+//Static image variables for arrows
+Arrow.iceTex = PIXI.Texture.fromImage("assets\\arrow.png");
+Arrow.fireTex = PIXI.Texture.fromImage("assets\\fireArrow.png");
+Arrow.magicTex  = PIXI.Texture.fromImage("assets\\magic.png");
+Arrow.fishTex = PIXI.Texture.fromImage("assets\\fish.png");
+Arrow.movesTillHit = 200;
+Arrow.minMoves = 100;
+
 //Arrow Class creates arrow objects
-function Arrow(height, stg){
-
+function Arrow(width, height, stg){
     this.hasCollidedYet = false;
-    this.shadowTex = PIXI.Texture.fromImage("assets\\shadow.png");
-    this.shadowImg = new PIXI.Sprite(this.shadowTex);
-
+    //starting y point
     this.start;
+    //ending x point
     this.end;
-    this.speed = 10;
-    this.shadowMaxSize = 100;
+    //the max shadow size and starting size
+    const shadowMaxSize = 50;
+    const shadowStartSize = 5;
+    //The chance of a redherring spawning as in 1/herringChance
+    const herringChance = 100;
+    //Width and Height of the arrows
+    const aWidth = 100;
+    const aHeight = 100;
+    //The thrid type of arrow, magic
+    const arrowTypeNum = 3;
+    //The third destination number, start number and row number
+    const numOfDestination = 3;
+    const numOfStart = 3;
+    const numOfRows = 3;
+    //The x value of the middle of the first column
+    const firstColX = width / 40 * 27;
+    //The difference of the x values of two adjacent columns
+    const colWidthDiff = width/40 *5;
+    //The y values of three possible row targets
+    const start1 = (height/6) * 5;
+    const start2 =  height/6;
+    const start3 = height/2;
+    //How much the red herring rotates per animation frame
+    const herringRotation = 0.05;
+    //The starting opacity of the shadow
+    const shadowAlpha = 0.025;
 
     this.x = 0;
     this.stage = stg;
     this.spawned = false;
     this.redherring = false;
+    this.type = 0;
 
+    this.shadow = new PIXI.Graphics();
+    this.radius = 0;
+    this.shadowColor = 0x000000;
+    //returns the has collided yet boolean
     this.hasCollided = function() {
         return this.hasCollidedYet;
     }
@@ -28,62 +63,77 @@ function Arrow(height, stg){
     }
     // sets the arrrows image for the sprite
     this.setImg = function(){
-        var num = Math.floor((Math.random()*10) + 1);
-        if(num == 5) {
-            this.texture = PIXI.Texture.fromImage("assets\\fish.png");
-            this.img = new PIXI.Sprite(this.texture);
-            this.img.width = 100;
-            this.img.height = 100;
+        var num = Math.floor((Math.random()* herringChance) + 1);
+        if(num == 1) {
+            this.img = new PIXI.Sprite(Arrow.fishTex);
+            this.img.width = aWidth;
+            this.img.height = aHeight;
             this.redherring = true;
         } else {
-            this.texture = PIXI.Texture.fromImage("assets\\fireArrow.png");
-            this.img = new PIXI.Sprite(this.texture);
+            var type = Math.floor((Math.random()*arrowTypeNum) + 1);
+            //sets arrow image based on arrow type
+            if(type == 1){
+                this.img = new PIXI.Sprite(Arrow.fireTex);
+                this.type = 1;
+            } else if(type == arrowTypeNum - 1){
+                this.img = new PIXI.Sprite(Arrow.iceTex);
+                this.img.width = aWidth;
+                this.img.height = aHeight;
+                this.type = arrowTypeNum - 1;
+            } else if(type == arrowTypeNum){
+                this.img = new PIXI.Sprite(Arrow.magicTex);
+                this.img.width = aWidth;
+                this.img.height = aHeight;
+                this.type = arrowTypeNum;
+            }
             this.redherring = false;
         }
     }
+
+    //returns arrow type
+    this.arrowType = function() {
+            return this.type;
+        }
+
     //returns the reherring boolean
     this.isRedherring = function() {
         return this.redherring;
     }
-    //returns the arrows shadow image
-    this.getShadowImg = function(){
-        return this.shadowImg;
-    }
+
     //sets the starting coordinates for the arrow
     this.setStart = function(){
-        this.start = Math.floor((Math.random() * 3) + 1);
+        this.start = Math.floor((Math.random() * numOfStart) + 1);
         //randomly chooses a staring cy coordinate
-        if(this.start == 1){
-            this.y = height/2;
-            this.destinationRow = 1;
-        } else if(this.start == 2){
-            this.y = height/6;
+        if(this.start == numOfStart){
+            this.y = start1;
+            this.destinationRow = numOfRows - 1;
+        } else if(this.start == numOfStart - 1){
+            this.y = start2;
             this.destinationRow = 0;
         } else {
-            this.y = (height/6) * 5;
-            this.destinationRow = 2;
+            this.y = start3;
+            this.destinationRow = 1;
         }
     }
     //sets the destination for the arrow
     this.setEnd = function(){
-        this.end = Math.floor((Math.random() * 3) + 1);
+        this.end = Math.floor((Math.random() * numOfDestination) + 1);
         //checks to see if arrow is red herring then random sets x coordinate for destination
         if(this.redherring == false) {
             if(this.end == 1){
-                this.destination = 800;
-                this.destinationColumn = 2;
-                this.shadowStartSize = 10;
-            } else if(this.end == 2){
-                this.destination = 685;
+                this.destinationColumn = numOfDestination - 1;
+            } else if(this.end == numOfDestination - 1){
                 this.destinationColumn = 1;
-                this.shadowStartSize = 10;
             } else {
-                this.destination = 570;
                 this.destinationColumn = 0;
-                this.shadowStartSize = 10;
+            }
+            this.destination = firstColX + colWidthDiff * this.destinationColumn;
+            this.speed = this.destination / Arrow.movesTillHit;
+            if(Arrow.movesTillHit > Arrow.minMoves){
+                Arrow.movesTillHit -= 2;
             }
         } else {
-            this.destination = 960;
+            this.destination = width;
         }
         this.timeTillHit = this.destination / this.speed;//calculates the time it will take to hit the target.
 
@@ -111,37 +161,50 @@ function Arrow(height, stg){
     //Moves the arrow base on its speed
     this.move = function(){
         //checks if arrow is red herring
-        if(this.redherring == true) {
-            this.img.position.x += this.speed;
-            this.img.rotation += 0.05;
-        } else {
-            this.shadowImg.width += this.shadowGrowthSpeed;//Grows by the calculated growth speed every tick.
-            this.shadowImg.height += this.shadowGrowthSpeed;
-            this.img.position.x += this.speed;
+        if(this.spawned == true){
+            if(this.redherring == true) {
+                this.img.position.x += this.speed;
+                this.img.rotation += herringRotation;
+            } else {
+                this.radius += this.shadowGrowthSpeed;//Grows by the calculated growth speed every tick.
+                this.shadow.beginFill(this.shadowColor, 1);  //(thickness, color)
+        		this.shadow.drawCircle(this.destination, this.y, this.radius);   //(x,y,radius)
+                this.shadow.alpha = shadowAlpha;
+        		this.shadow.endFill();
+                //this.shadowImg.height += this.shadowGrowthSpeed;
+                this.img.position.x += this.speed;
+            }
         }
+
     }
     //create the arrow and it's shadow and sets them to the stage
     this.create = function(){
-        this.shadowImg.width = this.shadowStartSize;
-        this.shadowImg.height = this.shadowStartSize;
-        this.stage.addChild(this.shadowImg);
+        this.radius = shadowStartSize
+        this.shadow.beginFill(this.shadowColor, 1);
+        this.shadow.drawCircle(this.destination, this.y, this.radius);
+        this.shadow.alpha = shadowAlpha;
+        this.shadow.endFill();
+        this.stage.addChild(this.shadow);
         this.stage.addChild(this.img);
 
         this.spawned = true;
 
-        this.shadowGrowthSpeed = (this.shadowMaxSize - this.shadowStartSize) / this.timeTillHit;//calculates how fast the shadow should grow to reach max size when the arrow hits.
+        this.shadowGrowthSpeed = ( shadowMaxSize - shadowStartSize) / this.timeTillHit;//calculates how fast the shadow should grow to reach max size when the arrow hits.
     }
+
     //removes the arrow from the stage
     this.remove = function(){
+
+        this.stage.removeChild(this.shadow);
+        this.shadow.clear();
         this.stage.removeChild(this.img);
-        this.stage.removeChild(this.shadowImg);
         this.spawned = false;
     }
     //returns which row the arrow is going to
     this.getDestinationRow = function() {
         return this.destinationRow;
     }
-    //returns the column that arrow is going to 
+    //returns the column that arrow is going to
     this.getDestinationColumn = function() {
         return this.destinationColumn;
     }

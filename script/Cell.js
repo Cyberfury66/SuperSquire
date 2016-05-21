@@ -1,7 +1,8 @@
 //A Cell can hold a squire.
 function Cell(col, row, pX, pY){
-    //Which Cell it is, in the grid.
-    this.gridPos = new Point(col, row);
+    //Which column and row it is in the grid.
+    this.column = col
+    this.row = row;
     //The squire that is in the cell.
     this.squire = null;
     //The x value of the center of the cell
@@ -36,11 +37,11 @@ function Cell(col, row, pX, pY){
 
     //Returns the row the cell is in.
     this.getRow = function() {
-      return this.gridPos.getY();
+      return this.row;
     }
 
     //Returns the column the cell is in.
     this.getCol = function() {
-      return this.gridPos.getX();
+      return this.column;
     }
 }
