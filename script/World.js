@@ -187,6 +187,7 @@ function World(newGame, h, w) {
 
         pauseButton.interactive = true;
         pauseButton.on('mousedown', togglePause);
+        pauseButton.on('touchstart', togglePause);
         //PLACEHOLDER TILL REAL ART IS IN
         var exitButton = new PIXI.Graphics();
 
@@ -197,6 +198,7 @@ function World(newGame, h, w) {
 
         exitButton.interactive = true;
         exitButton.on('mousedown', exitGame);
+        exitButton.on('touchstart', exitGame);
 
         var kiteShieldImg = new PIXI.Sprite(kiteShieldTexture);
 
@@ -211,6 +213,7 @@ function World(newGame, h, w) {
 
         kiteShieldImg.interactive = true;
         kiteShieldImg.on('mousedown', changeToKite);
+        kiteShieldImg.on('touchstart', changeToKite);
 
         var woodShieldImg = new PIXI.Sprite(woodShieldTexture);
 
@@ -225,6 +228,7 @@ function World(newGame, h, w) {
 
         woodShieldImg.interactive = true;
         woodShieldImg.on('mousedown', changeToWood);
+        woodShieldImg.on('touchstart', changeToWood);
 
         var spellTomeImg = new PIXI.Sprite(spellTomeTexture);
 
@@ -239,7 +243,8 @@ function World(newGame, h, w) {
 
         spellTomeImg.interactive = true;
         spellTomeImg.on('mousedown', changeToTome);
-
+        spellTomeImg.on('touchstart', changeToTome);
+        
         //The squire that the user controls.
         var squire = new Squire(woodShieldTexture, 2, this.cells[0][1], this);
         //Puts the squire in the right cell and draws it.
