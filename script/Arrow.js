@@ -1,7 +1,7 @@
 //Static image variables for arrows
-Arrow.iceTex = PIXI.Texture.fromImage("assets\\arrow.png");
-Arrow.fireTex = PIXI.Texture.fromImage("assets\\fireArrow.png");
-Arrow.magicTex  = PIXI.Texture.fromImage("assets\\magic.png");
+Arrow.iceTex = PIXI.Texture.fromImage("assets\\arrow_ice.png");
+Arrow.fireTex = PIXI.Texture.fromImage("assets\\arrow_fire.png");
+Arrow.magicTex  = PIXI.Texture.fromImage("assets\\arrow_magic.png");
 Arrow.fishTex = PIXI.Texture.fromImage("assets\\fish.png");
 Arrow.movesTillHit = 200;
 Arrow.minMoves = 100;
@@ -14,13 +14,13 @@ function Arrow(width, height, stg){
     //ending x point
     this.end;
     //the max shadow size and starting size
-    const shadowMaxSize = 50;
-    const shadowStartSize = 5;
+    const shadowMaxSize = width/20;
+    const shadowStartSize = shadowMaxSize/10;
     //The chance of a redherring spawning as in 1/herringChance
     const herringChance = 100;
     //Width and Height of the arrows
-    const aWidth = 100;
-    const aHeight = 100;
+    const aWidth = width/8;
+    const aHeight = width/8;
     //The thrid type of arrow, magic
     const arrowTypeNum = 3;
     //The third destination number, start number and row number
@@ -39,6 +39,13 @@ function Arrow(width, height, stg){
     const herringRotation = 0.05;
     //The starting opacity of the shadow
     const shadowAlpha = 0.025;
+    
+    var redherring;
+
+    var arrowShoot = new Howl ({
+      urls: ["audio/bow_fired.ogg", "audio/bow_fired.mp3"],
+      volume: 0.5,
+    });
 
     this.x = 0;
     this.stage = stg;
@@ -68,12 +75,19 @@ function Arrow(width, height, stg){
             this.img = new PIXI.Sprite(Arrow.fishTex);
             this.img.width = aWidth;
             this.img.height = aHeight;
-            this.redherring = true;
+            redherring = true;
+            this.redherring = redherring;
+            window.userInfo.herringsSeen++;
+            this.img.interactive = true;
+            this.img.on('mousedown', redHerringClicked);
+            this.img.on('touchstart', redHerringClicked);
         } else {
             var type = Math.floor((Math.random()*arrowTypeNum) + 1);
             //sets arrow image based on arrow type
             if(type == 1){
                 this.img = new PIXI.Sprite(Arrow.fireTex);
+                this.img.width = aWidth;
+                this.img.height = aHeight;
                 this.type = 1;
             } else if(type == arrowTypeNum - 1){
                 this.img = new PIXI.Sprite(Arrow.iceTex);
@@ -86,7 +100,15 @@ function Arrow(width, height, stg){
                 this.img.height = aHeight;
                 this.type = arrowTypeNum;
             }
-            this.redherring = false;
+            redherring = false;
+            this.redherring = redherring;
+        }
+    }
+
+    function redHerringClicked() {
+        if(isRedherring()) {
+            window.userInfo.herringClicked = 1;
+            alert("Achievement get:\n\"Clearly a Red Herring.\"\n Why would you click that? It was a red herring!");
         }
     }
 
@@ -96,9 +118,11 @@ function Arrow(width, height, stg){
         }
 
     //returns the reherring boolean
-    this.isRedherring = function() {
+    function isRedherring() {
         return this.redherring;
     }
+
+    this.isRedherring = isRedherring;
 
     //sets the starting coordinates for the arrow
     this.setStart = function(){
@@ -179,6 +203,7 @@ function Arrow(width, height, stg){
     }
     //create the arrow and it's shadow and sets them to the stage
     this.create = function(){
+        arrowShoot.play();
         this.radius = shadowStartSize
         this.shadow.beginFill(this.shadowColor, 1);
         this.shadow.drawCircle(this.destination, this.y, this.radius);

@@ -8,7 +8,27 @@ body {
   src: url('../fonts/kingArthur.ttf');
 }
 
-.btn {
+.modal-body {
+ background-image: url("../assets/wood texture 1.jpg");
+}
+
+.modal-header {
+ background-image: url("../assets/wood texture 1.jpg");
+}
+
+h2 {
+  font-family: 'kingArthur';
+  color: white;
+}
+
+h4 {
+  font-family: 'kingArthur';
+  color: white;
+}
+
+.btn-lg {
+  height: 15%;
+  width: 50%;
   position: relative;
   display: inline-block;
   font-size: 1.3em;
@@ -19,7 +39,7 @@ body {
   margin-bottom: 1%;
   font-family: 'kingArthur';
   color: white;
-  background-image: url('../assets/wood texture dark.png');
+  background-image: url('../assets/wood texture dark.jpg');
   background-size: 100%;
 }
 
@@ -27,41 +47,32 @@ body {
   color: yellow;
 }
 
-.btn:visited {
-  color: white;
-}
-
 #howtoplayDiv {
   height: 90%;
   width: 100%;
-  background-size: 100%;
+  display: none;
 }
 
 #gameScreen {
   float: none;
-  height: 70%;
+  height: 60%;
   width: 80%;
   margin: 0 auto;
   text-align: center;
-  background-size: 100% 100%;
-  background-image: url("../images/bg3.jpg");
   background-size: 100%;
-  border-style: dashed;
-  border-color: black;
+  background-image: url("../assets/wood texture 1.jpg");
 }
 
 #logo {
-  width: 20%;
-  height: auto;
-  top: 20%;
-  margin: 0 auto;
-  position: relative;
+  height: 30%;
+  width: auto;
 }
 
 #leaderboardsDiv{
   font-family: 'kingArthur';
   color: white;
   text-align: center;
+  display: none;
 }
 
 #leadPIC {
@@ -70,15 +81,12 @@ body {
 }
 
 #scoresText {
-    z-index: 100;
-    position: absolute;
-    left: 42%;
-    top: 30%;
+    margin: 0 auto;
+    font-size: 2em;
 }
 
 #gameOverDiv {
-  background-color: red;
-  position: absolute;
+  display: none;
 }
 
 #landscapeInstruction {
@@ -95,7 +103,38 @@ body {
   width: 25%;
 }
 
-@media screen and (orientation:portrait){
+#myModal {
+  width: 75%;
+  height: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#mainGameDiv {
+  height: 100%;
+  width: 100%;
+}
+
+#uiDiv{
+  height: 5%;
+  width: 80%;
+  margin: 0 auto;
+  display: none;
+  background-image: url("../assets/wood texture 1.jpg");
+  background-size: 100%;
+}
+
+#uiDiv h4 {
+  color: white;
+}
+
+.carousel-indicators li {
+  visibility: hidden;
+}
+
+.achievement {
+  width: 6%;
+  height: auto;
 }
 
 @media screen and (orientation:landscape){
@@ -112,52 +151,46 @@ body {
   }
 }
 
-@media screen and (max-width: 320px) {
-  #gameScreen{
-    height: 100%;
-    width: 100%;
-    position: relative;
-  }
-
-  .btn {
-    width: 60%;
-    height: 13%;
-  }
-
-  #logo {
-    height: 30%;
-    width: auto;
-    margin: 0 auto;
-  }
-
-  #landscapeInstruction {
-    font-size: 1em;
-  }
-}
-
 @media screen and (max-width : 768px) {
   #gameScreen{
-    height: 100%;
+    height: 80%;
     width: 100%;
   }
 
   #myCarousel {
-    height: 100%;
+    height: 80%;
     width: 100%;
-  }
-
-  .btn {
-    width: 60%;
-    height: 13%;
-  }
-
-  #logo {
-    height: 30%;
-    width: auto;
-    margin: 0 auto;
   }
 
   #landscapeInstruction {
     font-size: 1em;
   }
+
+  .progress {
+      height: 50%;
+      background-color: white;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+  }
+
+  #angerMeterIG {
+      height: 50%;
+  }
+
+  #howtoplayDiv {
+    width: 100%;
+    height: 80%;
+  }
+
+  #uiDiv{
+   height: 3%;
+   width: 100%;
+   margin: 0 auto;
+   display: none;
+   background-image: url("../assets/wood texture dark.jpg");
+   background-size: 100%;
+ }
+ 
+ #scoresText {
+ font-size: 1em;
 }

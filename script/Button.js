@@ -35,24 +35,24 @@ function Button(height, width, div) {
             case 'playAgain':
             var playATexture = new PIXI.Texture.fromImage('assets/playAgain.png');
             var playAButton = new PIXI.Sprite(playATexture);
-            playAButton.anchor.x = 0.5;
-            playAButton.anchor.y = 0.5;
-            playAButton.width = width / 4;
-            playAButton.height = height / 8;
-            playAButton.position.x = width / 2;
-            playAButton.position.y = (height / 2 + offset * 4);
+            //Sets play again anchor
+            playAButton.anchor.x = buttonAnchor;
+            playAButton.anchor.y = buttonAnchor;
+            //Set play again size
+            playAButton.width = buttonWidth;
+            playAButton.height = buttonHeight;
+            //set play again position
+            playAButton.position.x = buttonXPos1;
+            playAButton.position.y = buttonYpos1;
+            //make play again a button
             playAButton.interactive = true;
-            playAButton.on('touchstart', playAButtonOnTap);
-            function playAButtonOnTap() {
+            //calls function triggered by button click event
+            playAButton.click = function(mouseData) {
                 div.innerHTML = "";
                 var world = new World(0, height, width);
                 world.init();
             }
-            playAButton.click = function(mouseData) {
-              div.innerHTML = "";
-              var world = new World(0, height, width);
-              world.init();
-            }
+            //adds pay again to stage
             stage.addChild(playAButton);
             break;
         }

@@ -9,24 +9,28 @@ function LeaderboardShow() {
     //Used to process the JSON objects that come from the request
     function processScores(data) {
         var records = JSON.parse(data);
+        console.log(records);
         //alert(records);
         //Formats what is in records properly, and stores it
         for(var i = 0; i < records.length; i++) {
-            hiScores[i] = records[i][0] + "            " + records[i][1];
+            hiScores[i] = records[i]['userName'] + "            " + records[i]['hiScore'];
             //alert(hiScores[i]);
         }
 
         //Formats hiscore for displaying
-        var str;
+        var str = "";
+        $('p').text("");
         for (var i = 0; i < 5; i++) {
-            str = i + 1 + ") " + hiScores[i];
-            $('p').append(str + "<br />");
+            if(hiScores[i]) {
+                str = i + 1 + ") " + hiScores[i];
+                $('p').append(str + "<br />");
+            }
         }
     }
 
     //Request code taken from http://www.w3schools.com/json/json_http.asp
     var xmlhttp = new XMLHttpRequest();
-    var url = "textDoc.php";
+    var url = "php/getLeaderboard.php";
 
     xmlhttp.onreadystatechange=function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -35,12 +39,12 @@ function LeaderboardShow() {
         }
     }
 
-    xmlhttp.open("POST", url, false);
+    xmlhttp.open("POST", url, true);
     xmlhttp.send();
 
     //When the button is clicked, hide this screen and show another
     $('#mainMenuButtonL').click(function() {
-        $('#leaderboardsDiv').hide();
-        $('#mainMenuDiv').show();
+      $('#leaderboardsDiv').hide();
+      $('#mainMenuDiv').show();
     })
 }

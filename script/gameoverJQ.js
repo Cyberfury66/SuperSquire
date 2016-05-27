@@ -1,13 +1,24 @@
-function gameOver() {
+function gameOver(score, stage) {
   var div = $('#gameScreen');
+  var height = div.height();
+  var width = div.width();
 
-  $('#mainMenuButton').click(function() {
+  $('#gameOverDiv').show();
+  $('#myModal').modal("show");
+
+  $('#scoreText').text("Score: " + score + "  High Score: " + window.userInfo.hiScore);
+
+  $('#submitScoreButton').click(function() {
+    $('#submitScoreButton').hide();
+  })
+
+  $('#mainMenuButtonGO').click(function() {
+    location.reload();
+  })
+
+  $('#playAgainButtonGO').click(function() {
     $('#gameOverDiv').hide();
-    $('#mainMenuDiv').show();
-})
-
-  $('#playAgainButton').click(function() {
-    div.empty();
+    div.innerHTML = "";
     var world = new World(0, height, width);
     world.init();
   })

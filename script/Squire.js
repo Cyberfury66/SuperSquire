@@ -7,12 +7,23 @@ function Squire(startingShield, startingType, startingCell, newWorld) {
     //The world that the squire is in.
     this.world = newWorld
     this.blockType = startingType
+    this.flickering = false;
+    this.transparent = false;
+    var alphaNum = 1;
+    var img;
+    var flickerInter;
+    const flickerDuration = 1000;
+    const flickerRate = 10;
+    const blockPushBack = 10;
+
 
     //Changes which shield the squire is holding.
     this.setShield = function(newShield, blockType) {
         this.blockType = blockType
         currentShield = newShield;
-        this.img.texture = currentShield;
+        img.texture = currentShield;
+        img.width = this.world.width / 8;
+        img.height = this.world.width / 8;
     };
 
     //Moves the squire the direction that is passed in.
@@ -41,11 +52,14 @@ function Squire(startingShield, startingType, startingCell, newWorld) {
 
     //sets the squires image
     this.setImg = function() {
-        this.img = new PIXI.Sprite(this.currentShield);
+        img = new PIXI.Sprite(this.currentShield);
+        img.alpha = alphaNum;
+        img.width = this.world.width / 8;
+        img.height = this.world.width / 8;
     }
     //gets the image for the squire
     this.getImg = function() {
-        return this.img;
+        return img;
     }
 
     //Moves the squire up one cell if there is a cell to move to.
@@ -93,12 +107,38 @@ function Squire(startingShield, startingType, startingCell, newWorld) {
 
     //adds squires sprite to stage
     this.create = function(){
-      this.stage.addChild(this.img);
+      this.stage.addChild(img);
     }
 
     //Sets the squire's position to the center of the cell it is occupying.
     this.move = function(){
-      this.img.position.x = this.currentCell.getPxX();
-      this.img.position.y = this.currentCell.getPxY();
+      img.position.x = this.currentCell.getPxX();
+      img.position.y = this.currentCell.getPxY();
     }
+
+    this.blockEffect = function(){
+        img.position.x += blockPushBack;
+    }
+
+    this.startFlicker = function() {
+        this.flickering = true;
+        flickerInter = setInterval(this.flicker, flickerRate);
+        setTimeout(this.stopFlicker, flickerDuration);
+    }
+    this.stopFlicker = function() {
+        this.flickering = false;
+        img.alpha = 1;
+        clearInterval(flickerInter);
+    }
+
+    this.flicker = function() {
+        if(this.transparent == false) {
+            img.alpha = 0;
+            this.transparent = true
+        } else {
+            img.alpha = 1;
+            this.transparent = false;
+        }
+    }
+
 }
