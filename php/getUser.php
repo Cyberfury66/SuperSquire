@@ -1,7 +1,11 @@
 <?php
+//PDO code sourced by from the PHP documentation website
+//http://php.net/docs.php
 $dbh = new PDO('mysql:host=localhost;dbname=SuperSquireDB', 'SuperSquireUser', 'SuperSquire2016', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\'')); 
 
-/* Execute a prepared statement by passing an array of values */
+//Prepares and execute an SQL query to get the user's information
+//If the user is not already in the database, it creates another one
+//echos the user's info back as a JSON object
 $selectUser = $dbh->prepare('SELECT * FROM User WHERE username = ?');
 if($selectUser ->execute(array($_POST['username'])) == "false") {
 	$addUser = $dbh->prepare('INSERT INTO User(userName, hiScore, herringClicked, arrowsBlocked, herringsSeen) VALUES (?, 0, 0, 0, 0)');
