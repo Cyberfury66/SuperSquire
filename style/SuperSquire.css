@@ -1,31 +1,38 @@
+/* Standard HTML tags */
 body {
   overflow: hidden;
   background-color: black;
 }
 
-@font-face {
-  font-family: 'kingArthur';
-  src: url('../fonts/kingArthur.ttf');
-}
-
-.modal-body {
- background-image: url("../assets/wood texture 1.jpg");
-}
-
-.modal-header {
- background-image: url("../assets/wood texture 1.jpg");
-}
-
+/* Used for titles in Game Over and Leaderboards. */
 h2 {
   font-family: 'kingArthur';
   color: white;
 }
 
+/* Used for content in Leaderboards and Game Over. */
 h4 {
   font-family: 'kingArthur';
   color: white;
 }
 
+/* Defines custom text for website. */
+@font-face {
+  font-family: 'kingArthur';
+  src: url('../fonts/kingArthur.ttf');
+}
+
+/* Defines image for modal body background. Used in Game Over. */
+.modal-body {
+ background-image: url("../assets/wood texture 1.jpg");
+}
+
+/* Defines image for modal header background. Used in Game Over. */
+.modal-header {
+ background-image: url("../assets/wood texture 1.jpg");
+}
+
+/* Defines all buttons on website. */
 .btn-lg {
   height: 15%;
   width: 50%;
@@ -43,16 +50,32 @@ h4 {
   background-size: 100%;
 }
 
+/* Changes the button text to yellow when hovered over. */
 .btn:hover {
   color: yellow;
 }
 
+/* Hides the carousel indicators in the How To Play screen. */
+.carousel-indicators li {
+  visibility: hidden;
+}
+
+/* Resizes the pictures for the achievements. */
+.achievement {
+  width: 6%;
+  height: auto;
+}
+
+/* Content divs. Hidden at the start if not needed immediately. */
+
+/* Contains the onboarding. */
 #howtoplayDiv {
   height: 90%;
   width: 100%;
   display: none;
 }
 
+/* Main wrapper for all divs except the UI div. */
 #gameScreen {
   float: none;
   height: 60%;
@@ -63,11 +86,13 @@ h4 {
   background-image: url("../assets/wood texture 1.jpg");
 }
 
+/* Resizes the logo on the main page. */
 #logo {
   height: 30%;
   width: auto;
 }
 
+/* Formats the text and the alignment for the leaderboards Div. */
 #leaderboardsDiv{
   font-family: 'kingArthur';
   color: white;
@@ -75,34 +100,30 @@ h4 {
   display: none;
 }
 
-#leadPIC {
-  height: 80%;
-  width: auto;
-}
-
+/* Formats the text for the scores retrieved from the database. Used in leaderboards div. */
 #scoresText {
     margin: 0 auto;
     font-size: 2em;
 }
 
+/* Hides the game over div at the start. */
 #gameOverDiv {
   display: none;
 }
 
+/* Formats the text for the portrait warning. */
 #landscapeInstruction {
   font-family: 'kingArthur';
   color: white;
 }
 
-#muteMusicButton {
-  width: 25%;
 
-}
-
+/* Resizes the mute button. */
 #muteSoundButton {
   width: 25%;
 }
 
+/* Changes the size and position of the modal. Appears in Game Over. */
 #myModal {
   width: 75%;
   height: 100%;
@@ -110,11 +131,15 @@ h4 {
   text-align: center;
 }
 
+
+/* Div that the game runs in. PIXI Stage is appended to this div. */
 #mainGameDiv {
   height: 100%;
   width: 100%;
 }
 
+
+/* Defines the size and position of the UI div that displays the anger meter and score in game. */
 #uiDiv{
   height: 5%;
   width: 80%;
@@ -124,19 +149,13 @@ h4 {
   background-size: 100%;
 }
 
+/* Defines font color for the UI div. */
 #uiDiv h4 {
   color: white;
 }
 
-.carousel-indicators li {
-  visibility: hidden;
-}
 
-.achievement {
-  width: 6%;
-  height: auto;
-}
-
+/* Reacts when the screen is in landscape mode on a mobile device. */
 @media screen and (orientation:landscape){
   body {
      -webkit-transform: rotate(0deg);
@@ -146,26 +165,31 @@ h4 {
      transform: rotate(0deg);
   }
 
+/* Hides the portrait mode warning. */
   #landscapeInstruction {
     display: none;
   }
 }
 
+/* Defines sizing and positioning for devices with a screen size of 768px and lower. */
 @media screen and (max-width : 768px) {
   #gameScreen{
     height: 80%;
     width: 100%;
   }
 
+  /* Resizes the how to play screen. */
   #myCarousel {
     height: 80%;
     width: 100%;
   }
 
+/* Changes the font size for the portrait mode warning. */
   #landscapeInstruction {
     font-size: 1em;
   }
 
+  /* Restricts the anger meter to 50% of the div it is in as well as color of meter. */
   .progress {
       height: 50%;
       background-color: white;
@@ -173,15 +197,18 @@ h4 {
       box-shadow: none;
   }
 
+/* Defines the height of the anger meter div in game. */
   #angerMeterIG {
       height: 50%;
   }
 
+/* Resizes the how to play div to fit on the device screen. */
   #howtoplayDiv {
     width: 100%;
     height: 80%;
   }
 
+/* Formats the UI div to fit on the device screen. */
   #uiDiv{
    height: 3%;
    width: 100%;
@@ -190,7 +217,9 @@ h4 {
    background-image: url("../assets/wood texture dark.jpg");
    background-size: 100%;
  }
- 
- #scoresText {
- font-size: 1em;
+
+/* Formats the text on the leaderboards div. */
+   #scoresText {
+   font-size: 1em;
+  }
 }
