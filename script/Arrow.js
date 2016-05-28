@@ -46,12 +46,14 @@ function Arrow(width, height, stg){
       volume: 0.5,
     });
 
+    //Information the arrow has about itself
     this.x = 0;
     this.stage = stg;
     this.spawned = false;
     this.redherring = false;
     this.type = 0;
 
+    //A PIXI Graphics object for the arrow's shadow
     this.shadow = new PIXI.Graphics();
     this.radius = 0;
     this.shadowColor = 0x000000;
@@ -105,6 +107,7 @@ function Arrow(width, height, stg){
         }
     }
 
+    //Records that the red herring has been clicked by the player.
     function redHerringClicked() {
         window.userInfo.herringClicked = 1;
         alert("Achievement get:\n\"Clearly a Red Herring.\"\n Why would you click that? It was a red herring!");
