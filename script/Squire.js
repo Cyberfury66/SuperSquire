@@ -6,14 +6,21 @@ function Squire(startingShield, startingType, startingCell, newWorld) {
     this.currentCell = startingCell;
     //The world that the squire is in.
     this.world = newWorld
+
     this.blockType = startingType
+    //boolean for if shield is flickering
     this.flickering = false;
+    //boolean for if shield is transparent
     this.transparent = false;
+    //the alpha value for the shield image
     var alphaNum = 1;
+    //the shield image
     var img;
+    //the intervals that the shield flickers at
     var flickerInter;
     const flickerDuration = 1000;
     const flickerRate = 10;
+    //how much shield is pushed back after blocking
     const blockPushBack = 10;
 
 
@@ -115,22 +122,23 @@ function Squire(startingShield, startingType, startingCell, newWorld) {
       img.position.x = this.currentCell.getPxX();
       img.position.y = this.currentCell.getPxY();
     }
-
+    //pushes shield back after successfully blocking
     this.blockEffect = function(){
         img.position.x += blockPushBack;
     }
-
+    //makes the shield flicker if arrow is blocked with incorrect shield
     this.startFlicker = function() {
         this.flickering = true;
         flickerInter = setInterval(this.flicker, flickerRate);
         setTimeout(this.stopFlicker, flickerDuration);
     }
+    //stops shield from flickering
     this.stopFlicker = function() {
         this.flickering = false;
         img.alpha = 1;
         clearInterval(flickerInter);
     }
-
+    //chages the sheilds alpha from 0 to 1 and vice versa
     this.flicker = function() {
         if(this.transparent == false) {
             img.alpha = 0;
