@@ -39,9 +39,8 @@ function Arrow(width, height, stg){
     const herringRotation = 0.05;
     //The starting opacity of the shadow
     const shadowAlpha = 0.025;
-    
-    var redherring;
 
+    //Arrow shot sound effect
     var arrowShoot = new Howl ({
       urls: ["audio/bow_fired.ogg", "audio/bow_fired.mp3"],
       volume: 0.5,
@@ -75,8 +74,7 @@ function Arrow(width, height, stg){
             this.img = new PIXI.Sprite(Arrow.fishTex);
             this.img.width = aWidth;
             this.img.height = aHeight;
-            redherring = true;
-            this.redherring = redherring;
+            this.redherring = true;
             window.userInfo.herringsSeen++;
             this.img.interactive = true;
             this.img.on('mousedown', redHerringClicked);
@@ -89,27 +87,27 @@ function Arrow(width, height, stg){
                 this.img.width = aWidth;
                 this.img.height = aHeight;
                 this.type = 1;
+                this.img.interactive = false;
             } else if(type == arrowTypeNum - 1){
                 this.img = new PIXI.Sprite(Arrow.iceTex);
                 this.img.width = aWidth;
                 this.img.height = aHeight;
                 this.type = arrowTypeNum - 1;
+                this.img.interactive = false;
             } else if(type == arrowTypeNum){
                 this.img = new PIXI.Sprite(Arrow.magicTex);
                 this.img.width = aWidth;
                 this.img.height = aHeight;
                 this.type = arrowTypeNum;
+                this.img.interactive = false;
             }
-            redherring = false;
-            this.redherring = redherring;
+            this.redherring = false;
         }
     }
 
     function redHerringClicked() {
-        if(isRedherring()) {
-            window.userInfo.herringClicked = 1;
-            alert("Achievement get:\n\"Clearly a Red Herring.\"\n Why would you click that? It was a red herring!");
-        }
+        window.userInfo.herringClicked = 1;
+        alert("Achievement get:\n\"Clearly a Red Herring.\"\n Why would you click that? It was a red herring!");
     }
 
     //returns arrow type
@@ -118,11 +116,9 @@ function Arrow(width, height, stg){
         }
 
     //returns the reherring boolean
-    function isRedherring() {
+    this.isRedherring = function() {
         return this.redherring;
     }
-
-    this.isRedherring = isRedherring;
 
     //sets the starting coordinates for the arrow
     this.setStart = function(){
