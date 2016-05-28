@@ -9,6 +9,8 @@ function mainMenu() {
     var height = div.height();
     var widthB = div.width();
 
+
+    // main menu background music.
     var music1 = new Howl({
         urls: ["audio/AngevinB.ogg", "audio/AngevinB.mp3"],
         volume: 0.5,
@@ -16,6 +18,7 @@ function mainMenu() {
         autostart: true,
     });
 
+    //plays main menu background music after loading.
     music1.play();
 
     //getCookie and setCookie functions taken from http://www.w3schools.com/js/js_cookies.asp
@@ -65,7 +68,7 @@ function mainMenu() {
             console.log(user);
             console.log(user.hiScore);
             window.userInfo = user;
-            
+
             if(window.userInfo.herringsSeen > 0) {
                 $('#achieve1').attr("src","images/A1.jpg");
             }
