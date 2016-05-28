@@ -84,25 +84,28 @@ function World(newGame, h, w) {
     var renderer = PIXI.autoDetectRenderer(this.width, this.height);
 
     var canvas = renderer.view;
-    //variable for touch controls
+
     var touchHandler = new Hammer(canvas);
-    //type of shield collision
+
     var shieldCollision;
 
     touchHandler.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-    //shield textures
+
     var spellTomeTexture = PIXI.Texture.fromImage("assets\\shield_tome.png");
     var spellTomeTexture2 = PIXI.Texture.fromImage("assets\\spellTome.png");
     var kiteShieldHands = PIXI.Texture.fromImage("assets\\shield_kite.png");
     var kiteShieldTexture = PIXI.Texture.fromImage("assets\\kiteShield.png");
     var woodShieldHands = PIXI.Texture.fromImage("assets\\shield_wood.png");
     var woodShieldTexture = PIXI.Texture.fromImage("assets\\woodShield.png");
-    //anger sound effect
+
+
+    //anger increased sound effect
     var angerSound = new Howl({
       urls: ["audio/angry.ogg", "audio/angry.mp3"],
       volume: 0.5,
     });
-    //thud sound effect
+
+    //arrow hitting shield sound effect
     var thud = new Howl({
       urls: ["audio/thud.ogg", "audio/thud.mp3"],
       volume: 0.5,
@@ -187,48 +190,48 @@ function World(newGame, h, w) {
         backgroundImg.height = this.height;
         //pause button
         $("#pButton").click(togglePause);
-        //kite shield imamge
+
         var kiteShieldImg = new PIXI.Sprite(kiteShieldTexture);
-        //anchor kite shield button
+
         kiteShieldImg.anchor.x = centerAnchor;
         kiteShieldImg.anchor.y = centerAnchor;
-        //posisiton kiteShield button
+
         kiteShieldImg.position.x = shieldButtonsX;
         kiteShieldImg.position.y = KshieldButtonY;
-        //sizes kiteShield button
+
         kiteShieldImg.width = this.width * kshieldimgw;
         kiteShieldImg.height = this.height * kshieldimgh;
-        //Makes kite shield image a button
+
         kiteShieldImg.interactive = true;
         kiteShieldImg.on('mousedown', changeToKite);
         kiteShieldImg.on('touchstart', changeToKite);
-        //wooden shield image
+
         var woodShieldImg = new PIXI.Sprite(woodShieldTexture);
-        //Anchors wooden shield
+
         woodShieldImg.anchor.x = centerAnchor;
         woodShieldImg.anchor.y = centerAnchor;
-        //positions wooden shield
+
         woodShieldImg.position.x = shieldButtonsX;
         woodShieldImg.position.y = WshieldButtonY;
-        //sizes wooden shield
+
         woodShieldImg.width = this.width * wshieldimgw;
         woodShieldImg.height = this.height * wshieldimgh;
-        //makes wooden shield image a button
+
         woodShieldImg.interactive = true;
         woodShieldImg.on('mousedown', changeToWood);
         woodShieldImg.on('touchstart', changeToWood);
-        //book shield image
+
         var spellTomeImg = new PIXI.Sprite(spellTomeTexture2);
-        //set anchor of book shield
+
         spellTomeImg.anchor.x = centerAnchor;
         spellTomeImg.anchor.y = centerAnchor;
-        //posistions book shield
+
         spellTomeImg.position.x =  shieldButtonsX;
         spellTomeImg.position.y = SshieldButtonY;
-        //sizes book shield
+
         spellTomeImg.width = this.width * sshieldimgw;
         spellTomeImg.height = this.height * sshieldimgh;
-        //makes book shield a button
+
         spellTomeImg.interactive = true;
         spellTomeImg.on('mousedown', changeToTome);
         spellTomeImg.on('touchstart', changeToTome);
@@ -269,19 +272,19 @@ function World(newGame, h, w) {
         this.cells[col][row].setSquire(squire);
         squire.setCell(this.cells[col][row]);
     };
-    //changes avatar shield to kite shield
+
     function changeToKite() {
         squire.setShield(kiteShieldHands, 1);
     }
-    //changes avatar shield to wooden shield
+
     function changeToWood() {
         squire.setShield(woodShieldHands, 2);
     }
-    //changes avatar shield to book shield
+
     function changeToTome() {
         squire.setShield(spellTomeTexture, 3);
     }
-    //toggles pause
+
     function togglePause() {
         if(paused == false) {
             paused = true;
@@ -289,7 +292,7 @@ function World(newGame, h, w) {
             paused = false;
         }
     }
-    //exits game
+
     function exitGame() {
         //removes all the arrows from the screen and the array.
         for(var j = 0; j < arrows.length; j++){
@@ -367,19 +370,19 @@ function World(newGame, h, w) {
         }
     }
 
-    //swipe up event listener
+
     touchHandler.on('swipeup', function(ev) {
 	       squire.moveNow(0);
     });
-    //swipe right event listener
+
     touchHandler.on('swiperight', function(ev) {
 	       squire.moveNow(1);
     });
-    //swipe down event listener
+
     touchHandler.on('swipedown', function(ev) {
 	       squire.moveNow(2);
     });
-    //swipe left event listener
+
     touchHandler.on('swipeleft', function(ev) {
 	       squire.moveNow(3);
     });
@@ -395,7 +398,7 @@ function World(newGame, h, w) {
                         if(!arrows[j].isRedherring()) {
                             //checks if arrow hit shield or ground
                             shieldCollision = checkCollision(arrows[j]);
-                            //checks is arrow hit correct shield
+
                             if (shieldCollision == 1) {
                                 squire.blockEffect();
                             } else if (shieldCollision == 0) {
@@ -417,7 +420,6 @@ function World(newGame, h, w) {
         //recursivly calls the animte fucntion
         requestAnimationFrame( animate );
     }
-    //updates angermeter and checks if game should be over
     function angerUpdate() {
         //This is a possible game over screen.
         anger++;
@@ -455,6 +457,7 @@ function World(newGame, h, w) {
 
     //Checks if an arrow's destination is occupied by the squire, then increments
     //score if the arrow was blocked, or reloads the page if not.
+    //When the player blocks an arrow, it increments how many arrows they've blocked.
     function checkCollision(arrow) {
         //Makes sure this is the first timw checkCollision was called on this arrow.
         if(!arrow.hasCollided()) {
@@ -466,8 +469,8 @@ function World(newGame, h, w) {
                     if(arrow.arrowType() == squire.getShieldType()) {
                         score += 1;
                         window.userInfo.arrowsBlocked++;
-                        if(window.userInfo.arrowsBlocked == 100) {
-                            alert("Achievement get:\nThen we shall fight in the shade.\n You have blocked 100 arrows!");
+                        if(window.userInfo.arrowsBlocked == 1000) {
+                            alert("Achievement get:\nThen we shall fight in the shade.\n You have blocked 1000 arrows!");
                         }
                         thud.play();
                         $('#scoreTextIG').text("Score: " + score);
