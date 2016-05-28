@@ -1,5 +1,6 @@
 <?php
 //PDO code sourced by from the PHP documentation website
+//http://php.net/docs.php
 $dbh = new PDO('mysql:host=localhost;dbname=SuperSquireDB', 'SuperSquireUser', 'SuperSquire2016', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\'')); 
 
 //Prepares and execute an SQL query to get the top 5 scores
